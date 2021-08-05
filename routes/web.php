@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Rotas de autenticação
 Auth::routes();
 
+require_once base_path('routes/cliente/cliente.php');
 require_once base_path('routes/dashboard/dashboard.php');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

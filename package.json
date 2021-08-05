@@ -27,6 +27,8 @@
     "dependencies": {
         "@inertiajs/inertia": "^0.10.1",
         "@inertiajs/inertia-react": "^0.7.1",
-        "bulma": "^0.9.3"
+        "@inertiajs/progress": "^0.2.6",
+        "bulma": "^0.9.3",
+        "nprogress": "^0.2.0"
     }
 }
