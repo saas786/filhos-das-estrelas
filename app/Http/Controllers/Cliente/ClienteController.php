@@ -12,4 +12,9 @@ class ClienteController extends Controller
     {
         return Inertia::render('Cliente/Index');
     }
+
+    public function cadastro()
+    {
+        return Inertia::render('Cliente/Cadastro');
+    }
 }

@@ -20,7 +20,9 @@ export default function Login() {
             <div id="login-card">
                 <div className="card">
                     <div className="card-content">
-                        <p className="subtitle">Login</p>
+                        <p className="subtitle">
+                            <em className="fa fa-star-christmas"></em> Login
+                        </p>
                         <hr />
                         <form onSubmit={submit}>
                             <div className="field">
