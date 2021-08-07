@@ -1,12 +1,27 @@
 import Layout from "../../Shared/Layout"
 import Endereco from "../../Shared/Cadastros/Endereco"
-import { useForm } from "@inertiajs/inertia-react"
+import { useForm, usePage } from "@inertiajs/inertia-react"
 
 export default function Cadastro() {
-    const {data, setData, post, processing, errors} = useForm({
+    const { cliente } = usePage().props;
+
+    const { data, setData, post, processing, errors } = useForm({
+        nome: cliente ? cliente.nome : '',
+        data_nascimento: cliente ? cliente.data_nascimento : '',
+        genero: cliente ? cliente.genero : '',
         cep: '',
         logradouro: ''
     });
+
+    function submit(e) {
+        e.preventDefault();
+
+        if(cliente) {
+            put(route('clientes.editar'));
+        }else {
+            post(route('clientes.salvar'));
+        }
+    }
 
     return (
         <Layout>
@@ -19,7 +34,7 @@ export default function Cadastro() {
             <div id="cadastro-clientes-div" className="mt-6">
                 <h4 className="subtitle is-4">Cadastro de cliente</h4>
                 <hr />
-                <form action="">
+                <form onSubmit={submit}>
                     <div id="formulario-dados-basicos">
                         <h5 className="subtitle is-5">Dados básicos</h5>
                         <div className="columns">
@@ -27,7 +42,11 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Nome</label>
                                     <div className="control">
-                                        <input type="email" className="input" placeholder="Insira o nome do cliente" />
+                                        <input type="text"
+                                            className="input"
+                                            placeholder="Insira o nome do cliente"
+                                            value={data.nome}
+                                            onChange={e => setData('nome', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -37,7 +56,10 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Data de nascimento</label>
                                     <div className="control">
-                                        <input type="date" className="input" />
+                                        <input type="date"
+                                            className="input"
+                                            value={data.data_nascimento}
+                                            onChange={e => setData('data_nascimento', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +67,7 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Gênero</label>
                                     <div className="select">
-                                        <select>
+                                        <select value={data.genero} onChange={e => setData('genero', e.target.value)}>
                                             <option value="">Selecione</option>
                                             <option value="FEMININO">Feminino</option>
                                             <option value="MASCULINO">Masculino</option>
@@ -55,7 +77,12 @@ export default function Cadastro() {
                             </div>
                         </div>
                     </div>
-                    <Endereco data={data}/>
+                    <Endereco data={data} />
+                    <div className="columns">
+                        <div className="column">
+                            <button type="submit" className="button is-primary">Salvar</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </Layout>

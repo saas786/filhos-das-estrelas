@@ -1,0 +1,8 @@
+html, body {
+    height: 100% !important;
+}
+
+#nprogress .bar {
+    height: 3px !important;
+    background-color: #00d1b2;
+}

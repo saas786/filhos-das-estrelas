@@ -5,7 +5,7 @@ export default function Header() {
         <nav className="navbar box" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 <a href="/" className="navbar-item">
-                    <h4>Projeto <span className="tag is-link is-light is-medium">FDE</span></h4>
+                    <h4>Projeto FDE</h4>
                 </a>
 
                 <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
