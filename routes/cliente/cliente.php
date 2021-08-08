@@ -8,5 +8,6 @@ Route::group(
         Route::get('/', [ClienteController::class, 'index'])->name('clientes.index');
         Route::get('/cadastro/{cliente?}', [ClienteController::class, 'cadastro'])->name('clientes.cadastro');
         Route::post('/salvar', [ClienteController::class, 'salvar'])->name('clientes.salvar');
+        Route::put('/editar/{cliente}', [ClienteController::class, 'editar'])->name('clientes.editar');
     }
 );

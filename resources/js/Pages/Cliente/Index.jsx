@@ -21,7 +21,7 @@ export default function Index() {
                         <Link href={route('clientes.cadastro')} className="button is-primary is-pulled-right">Novo cliente</Link>
                     </div>
                 </div>
-                <table className="table is-striped is-fullwidth">
+                <table className="table is-striped is-hoverable is-fullwidth">
                     <thead>
                         <tr>
                             <th>Nome</th>

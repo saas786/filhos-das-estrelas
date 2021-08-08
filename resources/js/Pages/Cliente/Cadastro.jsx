@@ -1,26 +1,27 @@
 import Layout from "../../Shared/Layout"
-import Endereco from "../../Shared/Cadastros/Endereco"
+import InputMask from 'react-input-mask';
+import Notification from "../../Shared/Notification";
 import { useForm, usePage } from "@inertiajs/inertia-react"
 
 export default function Cadastro() {
     const { cliente } = usePage().props;
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, put, errors } = useForm({
         nome: cliente ? cliente.nome : '',
         data_nascimento: cliente ? cliente.data_nascimento : '',
         genero: cliente ? cliente.genero : '',
         cep: '',
-        logradouro: ''
+        logradouro: '',
+        bairro: '',
+        cidade: '',
+        uf: '',
+        numero: ''
     });
 
     function submit(e) {
         e.preventDefault();
 
-        if(cliente) {
-            put(route('clientes.editar'));
-        }else {
-            post(route('clientes.salvar'));
-        }
+        cliente ? put(route('clientes.editar', cliente)) : post(route('clientes.salvar'));
     }
 
     return (
@@ -31,6 +32,7 @@ export default function Cadastro() {
                     <li className="is-active"><a href={route('clientes.cadastro')}>Cadastro</a></li>
                 </ul>
             </nav>
+            <Notification />
             <div id="cadastro-clientes-div" className="mt-6">
                 <h4 className="subtitle is-4">Cadastro de cliente</h4>
                 <hr />
@@ -43,11 +45,12 @@ export default function Cadastro() {
                                     <label className="label">Nome</label>
                                     <div className="control">
                                         <input type="text"
-                                            className="input"
+                                            className={errors.nome ? 'input is-danger' : 'input'}
                                             placeholder="Insira o nome do cliente"
                                             value={data.nome}
                                             onChange={e => setData('nome', e.target.value)} />
                                     </div>
+                                    {errors.nome && <span className="help is-danger">{errors.nome}</span>}
                                 </div>
                             </div>
                         </div>
@@ -66,18 +69,73 @@ export default function Cadastro() {
                             <div className="column is-3">
                                 <div className="field">
                                     <label className="label">Gênero</label>
-                                    <div className="select">
+                                    <div className={errors.genero ? 'select is-danger' : 'select'}>
                                         <select value={data.genero} onChange={e => setData('genero', e.target.value)}>
                                             <option value="">Selecione</option>
                                             <option value="FEMININO">Feminino</option>
                                             <option value="MASCULINO">Masculino</option>
                                         </select>
                                     </div>
+                                    {errors.genero && <span className="help is-danger">{errors.genero}</span>}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <Endereco data={data} />
+                    <div id="formulario-endereco">
+                        <h5 className="subtitle is-5 mt-6">Endereço</h5>
+                        <div className="columns">
+                            <div className="column is-2">
+                                <div className="field">
+                                    <label className="label">CEP</label>
+                                    <div className="control">
+                                        <InputMask mask="99999-999" className="input" value={data.cep} onChange={e => setData('cep', e.target.value)} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="column is-4">
+                                <div className="field">
+                                    <label className="label">Logradouro</label>
+                                    <div className="control">
+                                        <input type="text" className="input" value={data.logradouro} onChange={e => setData('logradouro', e.target.value)} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="columns">
+                            <div className="column is-1">
+                                <div className="field">
+                                    <label className="label">UF</label>
+                                    <div className="control">
+                                        <input type="text" className="input" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="column is-2">
+                                <div className="field">
+                                    <label className="label">Cidade</label>
+                                    <div className="control">
+                                        <input type="text" className="input" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="column is-2">
+                                <div className="field">
+                                    <label className="label">Bairro</label>
+                                    <div className="control">
+                                        <input type="text" className="input" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="column is-1">
+                                <div className="field">
+                                    <label className="label">Numero</label>
+                                    <div className="control">
+                                        <input type="number" className="input" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="columns">
                         <div className="column">
                             <button type="submit" className="button is-primary">Salvar</button>

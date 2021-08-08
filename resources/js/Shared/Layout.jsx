@@ -4,6 +4,8 @@ import Header from "./Header";
 import '../../sass/layout.scss';
 
 export default function Layout({children}) {
+    const teste = 'Matheus';
+
     return (
         <main id="main">
             <Header />
