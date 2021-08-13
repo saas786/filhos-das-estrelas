@@ -5,7 +5,7 @@ import Notification from "../../Shared/Notification";
 import { useForm, usePage } from "@inertiajs/inertia-react"
 
 export default function Cadastro() {
-    const { cliente, endereco } = usePage().props;
+    const { cliente, endereco, contato } = usePage().props;
 
     const { data, setData, post, put, errors } = useForm({
         nome: cliente ? cliente.nome : '',
@@ -16,31 +16,11 @@ export default function Cadastro() {
         bairro: endereco ? endereco.bairro : '',
         cidade: endereco ? endereco.cidade : '',
         uf: endereco ? endereco.uf : '',
-        numero: endereco ? endereco.numero : ''
+        numero: endereco ? endereco.numero : '',
+        telefone_fixo: contato ? contato.telefone_fixo : '',
+        telefone_celular: contato ? contato.telefone_celular : '',
+        email: contato ? contato.email : ''
     });
-
-    // function buscarCep(e) {
-    //     axios.get("https://viacep.com.br/ws/" + e.target.value + "/json/").then(function (endereco) {
-    //         let enderecoData = endereco.data;
-
-    //         if (enderecoData.erro) {
-    //             alert('Endereço não encontrado!');
-    //         } else {
-    //             preencherFormularioEndereco(enderecoData);
-    //         }
-    //     })
-    // }
-
-    // function preencherFormularioEndereco(enderecoData) {
-    //     desabilitarFormularioEndereco();
-    // }
-
-    // function desabilitarFormularioEndereco() {
-    //     document.getElementById('logradouro').disabled = true;
-    //     document.getElementById('bairro').disabled = true;
-    //     document.getElementById('cidade').disabled = true;
-    //     document.getElementById('uf').disabled = true;
-    // }
 
     function submit(e) {
         e.preventDefault();
@@ -160,7 +140,36 @@ export default function Cadastro() {
                             </div>
                         </div>
                     </div>
-                    <div className="columns">
+                    <div id="formulario-contato">
+                        <h5 className="subtitle is-5 mt-6">Contato</h5>
+                        <div className="columns">
+                            <div className="column is-2">
+                                <div className="field">
+                                    <label>Telefone fixo</label>
+                                    <div className="control">
+                                        <InputMask mask="(99) 9999-9999" className="input" id="telefone_fixo" value={data.telefone_fixo} onChange={e => setData('telefone_fixo', e.target.value)} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="column is-2">
+                                <div className="field">
+                                    <label>Telefone celular</label>
+                                    <div className="control">
+                                        <InputMask mask="(99) 99999-9999" className="input" value={data.telefone_celular} onChange={e => setData('telefone_celular', e.target.value)} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="column is-3">
+                                <div className="field">
+                                    <label>Email</label>
+                                    <div className="control">
+                                        <input type="email" className="input" value={data.email} onChange={e => setData('email', e.target.value)} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="columns mt-2">
                         <div className="column">
                             <button type="submit" className="button is-primary">Salvar</button>
                         </div>

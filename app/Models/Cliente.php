@@ -21,4 +21,9 @@ class Cliente extends Model
     {
         return $this->hasOne(Endereco::class, 'cliente_id', 'id');
     }
+
+    public function contato()
+    {
+        return $this->hasOne(Contato::class, 'cliente_id', 'id');
+    }
 }

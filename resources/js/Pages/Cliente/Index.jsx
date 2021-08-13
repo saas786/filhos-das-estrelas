@@ -50,7 +50,7 @@ export default function Index() {
                                 <td className="has-text-centered">{cliente.data_nascimento}</td>
                                 <td className="has-text-centered">{cliente.genero == 'MASCULINO' ? 'Masculino' : 'Feminino'}</td>
                                 <td className="has-text-centered">
-                                    <Link className="button is-link mr-2" href={route('clientes.cadastro', cliente)} method="get" as="link">Editar</Link>
+                                    <Link className="button is-link mr-2" href={route('clientes.cadastro', cliente)} method="get">Editar</Link>
                                     <button type="button" className="button is-danger" onClick={e => excluirCliente(cliente)}>Excluir</button>
                                 </td>
                             </tr>

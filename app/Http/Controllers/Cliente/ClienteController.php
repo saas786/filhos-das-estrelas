@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cliente\SalvarClienteRequest;
 use App\Jobs\Cliente\ExcluirClienteJob;
 use App\Jobs\Cliente\SalvarClienteJob;
+use App\Jobs\Cliente\SalvarContatoClienteJob;
 use App\Jobs\Cliente\SalvarEnderecoClienteJob;
 use App\Models\Cliente;
 use Inertia\Inertia;
@@ -45,7 +46,8 @@ class ClienteController extends Controller
             'Cliente/Cadastro',
             [
                 'cliente' => $cliente,
-                'endereco' => $cliente ? $cliente->endereco : ''
+                'endereco' => $cliente ? $cliente->endereco : '',
+                'contato' => $cliente ? $cliente->contato : ''
             ]
         );
     }
@@ -59,7 +61,19 @@ class ClienteController extends Controller
         $atributos = collect($request->all());
 
         $cliente = SalvarClienteJob::dispatchNow($atributos);
-        $endereco = SalvarEnderecoClienteJob::dispatchNow($atributos, $cliente);
+
+        if ($atributos->get('cep') || $atributos->get('logradouro')) {
+            $endereco = SalvarEnderecoClienteJob::dispatchNow($atributos, $cliente);
+        }
+
+        if (
+            $atributos->get('telefone_fixo')
+            || $atributos->get('telefone_celular')
+            || $atributos->get('email')
+        ) {
+            dd('teste');
+            $contato = SalvarContatoClienteJob::dispatchNow($atributos, $cliente);
+        }
 
         return Redirect()->route('clientes.cadastro', $cliente)->with('success', 'Dados salvos com sucesso!');
     }
@@ -74,7 +88,18 @@ class ClienteController extends Controller
         $atributos = collect($request->all());
 
         $cliente = SalvarClienteJob::dispatchNow($atributos, $cliente);
-        $endereco = SalvarEnderecoClienteJob::dispatchNow($atributos, $cliente);
+
+        if ($atributos->get('cep') || $atributos->get('logradouro')) {
+            $endereco = SalvarEnderecoClienteJob::dispatchNow($atributos, $cliente);
+        }
+
+        if (
+            $atributos->get('telefone_fixo')
+            || $atributos->get('telefone_celular')
+            || $atributos->get('email')
+        ) {
+            $contato = SalvarContatoClienteJob::dispatchNow($atributos, $cliente);
+        }
 
         return Redirect()->back()->with('success', 'Dados salvos com sucesso!');
     }
