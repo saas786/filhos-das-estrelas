@@ -7,7 +7,6 @@ export default function Notification () {
         <div>
             {flash.success && (
                 <div className="notification is-success is-light">
-                    <button className="delete"></button>
                     {flash.success}
                 </div>
             )}

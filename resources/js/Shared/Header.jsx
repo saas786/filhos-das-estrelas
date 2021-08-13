@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/inertia-react"
 
 export default function Header() {
     return (
-        <nav className="navbar box" role="navigation" aria-label="main navigation">
+        <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 <a href="/" className="navbar-item">
                     <h4>Projeto FDE</h4>

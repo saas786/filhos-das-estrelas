@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Cliente;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cliente\SalvarClienteRequest;
+use App\Jobs\Cliente\ExcluirClienteJob;
 use App\Jobs\Cliente\SalvarClienteJob;
+use App\Jobs\Cliente\SalvarEnderecoClienteJob;
 use App\Models\Cliente;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 use function GuzzleHttp\Promise\all;
@@ -44,7 +44,8 @@ class ClienteController extends Controller
         return Inertia::render(
             'Cliente/Cadastro',
             [
-                'cliente' => $cliente
+                'cliente' => $cliente,
+                'endereco' => $cliente ? $cliente->endereco : ''
             ]
         );
     }
@@ -55,7 +56,10 @@ class ClienteController extends Controller
      */
     public function salvar(SalvarClienteRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $cliente = SalvarClienteJob::dispatchNow(collect($request->all()));
+        $atributos = collect($request->all());
+
+        $cliente = SalvarClienteJob::dispatchNow($atributos);
+        $endereco = SalvarEnderecoClienteJob::dispatchNow($atributos, $cliente);
 
         return Redirect()->route('clientes.cadastro', $cliente)->with('success', 'Dados salvos com sucesso!');
     }
@@ -67,8 +71,22 @@ class ClienteController extends Controller
      */
     public function editar(SalvarClienteRequest $request, Cliente $cliente): \Illuminate\Http\RedirectResponse
     {
-        $cliente = SalvarClienteJob::dispatchNow(collect($request->all()), $cliente);
+        $atributos = collect($request->all());
+
+        $cliente = SalvarClienteJob::dispatchNow($atributos, $cliente);
+        $endereco = SalvarEnderecoClienteJob::dispatchNow($atributos, $cliente);
 
         return Redirect()->back()->with('success', 'Dados salvos com sucesso!');
+    }
+
+    /**
+     * @param Cliente $cliente
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function excluir(Cliente $cliente)
+    {
+        ExcluirClienteJob::dispatchNow($cliente);
+
+        return Redirect()->back()->with('success', 'Dados excluídos com sucesso!');
     }
 }

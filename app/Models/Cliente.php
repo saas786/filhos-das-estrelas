@@ -16,4 +16,9 @@ class Cliente extends Model
     protected $casts = [
         'data_nascimento' => 'datetime:Y-m-d'
     ];
+
+    public function endereco()
+    {
+        return $this->hasOne(Endereco::class, 'cliente_id', 'id');
+    }
 }

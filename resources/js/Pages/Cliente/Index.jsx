@@ -1,8 +1,20 @@
 import Layout from "../../Shared/Layout"
+import Notification from "../../Shared/Notification"
+import { Inertia } from "@inertiajs/inertia"
 import { Link, usePage } from "@inertiajs/inertia-react"
 
 export default function Index() {
     const { clientes } = usePage().props;
+
+    function excluirCliente(cliente) {
+        let confirmation = confirm('Você deseja realmente excluir esse cliente?');
+
+        if (confirmation === true) {
+            Inertia.delete(route('clientes.excluir', cliente));
+        } else {
+            alert('operação finalizada');
+        }
+    }
 
     return (
         <Layout>
@@ -12,6 +24,7 @@ export default function Index() {
                     <li className="is-active"><a href={route('clientes.index')}>Listagem</a></li>
                 </ul>
             </nav>
+            <Notification />
             <div id="lista-clientes-div" className="mt-6">
                 <div className="columns">
                     <div className="column">
@@ -37,8 +50,8 @@ export default function Index() {
                                 <td className="has-text-centered">{cliente.data_nascimento}</td>
                                 <td className="has-text-centered">{cliente.genero == 'MASCULINO' ? 'Masculino' : 'Feminino'}</td>
                                 <td className="has-text-centered">
-                                    <Link className="button is-link mr-2" href={route('clientes.cadastro', cliente)}>Editar</Link>
-                                    <Link className="button is-danger" href="/">Excluir</Link>
+                                    <Link className="button is-link mr-2" href={route('clientes.cadastro', cliente)} method="get" as="link">Editar</Link>
+                                    <button type="button" className="button is-danger" onClick={e => excluirCliente(cliente)}>Excluir</button>
                                 </td>
                             </tr>
                         ))}

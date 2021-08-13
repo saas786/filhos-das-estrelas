@@ -4,7 +4,7 @@ export default function Index() {
     return (
         <Layout>
             <div>
-                <div className="notification">
+                <div className="notification mt-4">
                     <h1>Seja bem vindo ao projeto Filhos das Estrelas</h1>
                 </div>
                 <div className="dashboard-content">

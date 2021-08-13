@@ -9,5 +9,6 @@ Route::group(
         Route::get('/cadastro/{cliente?}', [ClienteController::class, 'cadastro'])->name('clientes.cadastro');
         Route::post('/salvar', [ClienteController::class, 'salvar'])->name('clientes.salvar');
         Route::put('/editar/{cliente}', [ClienteController::class, 'editar'])->name('clientes.editar');
+        Route::delete('/excluir/{cliente}', [ClienteController::class, 'excluir'])->name('clientes.excluir');
     }
 );

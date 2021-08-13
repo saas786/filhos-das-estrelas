@@ -1,22 +1,46 @@
+import axios from "axios";
 import Layout from "../../Shared/Layout"
 import InputMask from 'react-input-mask';
 import Notification from "../../Shared/Notification";
 import { useForm, usePage } from "@inertiajs/inertia-react"
 
 export default function Cadastro() {
-    const { cliente } = usePage().props;
+    const { cliente, endereco } = usePage().props;
 
     const { data, setData, post, put, errors } = useForm({
         nome: cliente ? cliente.nome : '',
         data_nascimento: cliente ? cliente.data_nascimento : '',
         genero: cliente ? cliente.genero : '',
-        cep: '',
-        logradouro: '',
-        bairro: '',
-        cidade: '',
-        uf: '',
-        numero: ''
+        cep: endereco ? endereco.cep : '',
+        logradouro: endereco ? endereco.logradouro : '',
+        bairro: endereco ? endereco.bairro : '',
+        cidade: endereco ? endereco.cidade : '',
+        uf: endereco ? endereco.uf : '',
+        numero: endereco ? endereco.numero : ''
     });
+
+    // function buscarCep(e) {
+    //     axios.get("https://viacep.com.br/ws/" + e.target.value + "/json/").then(function (endereco) {
+    //         let enderecoData = endereco.data;
+
+    //         if (enderecoData.erro) {
+    //             alert('Endereço não encontrado!');
+    //         } else {
+    //             preencherFormularioEndereco(enderecoData);
+    //         }
+    //     })
+    // }
+
+    // function preencherFormularioEndereco(enderecoData) {
+    //     desabilitarFormularioEndereco();
+    // }
+
+    // function desabilitarFormularioEndereco() {
+    //     document.getElementById('logradouro').disabled = true;
+    //     document.getElementById('bairro').disabled = true;
+    //     document.getElementById('cidade').disabled = true;
+    //     document.getElementById('uf').disabled = true;
+    // }
 
     function submit(e) {
         e.preventDefault();
@@ -96,7 +120,7 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Logradouro</label>
                                     <div className="control">
-                                        <input type="text" className="input" value={data.logradouro} onChange={e => setData('logradouro', e.target.value)} />
+                                        <input type="text" className="input" id="logradouro" value={data.logradouro} onChange={e => setData('logradouro', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +130,7 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">UF</label>
                                     <div className="control">
-                                        <input type="text" className="input" />
+                                        <input type="text" className="input" id="uf" value={data.uf} onChange={e => setData('uf', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +138,7 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Cidade</label>
                                     <div className="control">
-                                        <input type="text" className="input" />
+                                        <input type="text" className="input" id="cidade" value={data.cidade} onChange={e => setData('cidade', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +146,7 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Bairro</label>
                                     <div className="control">
-                                        <input type="text" className="input" />
+                                        <input type="text" className="input" id="bairro" value={data.bairro} onChange={e => setData('bairro', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +154,7 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Numero</label>
                                     <div className="control">
-                                        <input type="number" className="input" />
+                                        <input type="number" className="input" id="numero" value={data.numero} onChange={e => setData('numero', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
