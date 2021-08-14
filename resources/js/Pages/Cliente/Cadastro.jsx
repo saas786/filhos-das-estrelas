@@ -1,4 +1,3 @@
-import axios from "axios";
 import Layout from "../../Shared/Layout"
 import InputMask from 'react-input-mask';
 import Notification from "../../Shared/Notification";
@@ -17,9 +16,9 @@ export default function Cadastro() {
         cidade: endereco ? endereco.cidade : '',
         uf: endereco ? endereco.uf : '',
         numero: endereco ? endereco.numero : '',
-        telefone_fixo: contato ? contato.telefone_fixo : '',
-        telefone_celular: contato ? contato.telefone_celular : '',
-        email: contato ? contato.email : ''
+        telefone_fixo: contato && contato.telefone_fixo ? contato.telefone_fixo : '',
+        telefone_celular: contato && contato.telefone_celular ? contato.telefone_celular : '',
+        email: contato && contato.email ? contato.email : ''
     });
 
     function submit(e) {
@@ -33,7 +32,9 @@ export default function Cadastro() {
             <nav className="breadcrumb mt-5" aria-label="breadcrumbs">
                 <ul>
                     <li><a href={route('clientes.index')}>Clientes</a></li>
-                    <li className="is-active"><a href={route('clientes.cadastro')}>Cadastro</a></li>
+                    <li className="is-active">
+                        <a href={cliente ? route('clientes.cadastro', cliente) : route('clientes.cadastro')}>{cliente ? cliente.nome : ''}</a>
+                    </li>
                 </ul>
             </nav>
             <Notification />

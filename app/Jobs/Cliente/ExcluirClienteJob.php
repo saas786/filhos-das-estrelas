@@ -42,6 +42,10 @@ class ExcluirClienteJob implements ShouldQueue
                     $this->cliente->endereco->delete();
                 }
 
+                if($this->cliente->contato) {
+                    $this->cliente->contato->delete();
+                }
+
                 $this->cliente->delete();
 
                 return $this->cliente;
