@@ -1,6 +1,7 @@
 import Layout from "../../Shared/Layout"
-import Notification from "../../Shared/Notification"
 import { Inertia } from "@inertiajs/inertia"
+import Paginator from "../../Shared/Paginator"
+import Notification from "../../Shared/Notification"
 import { Link, usePage } from "@inertiajs/inertia-react"
 
 export default function Index() {
@@ -11,8 +12,6 @@ export default function Index() {
 
         if (confirmation === true) {
             Inertia.delete(route('clientes.excluir', cliente));
-        } else {
-            alert('operação finalizada');
         }
     }
 
@@ -38,7 +37,7 @@ export default function Index() {
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th className="has-text-centered">Data de Nascimento</th>
+                            <th className="has-text-centered">Data de nascimento</th>
                             <th className="has-text-centered">Gênero</th>
                             <th className="has-text-centered">Ações</th>
                         </tr>
@@ -47,7 +46,7 @@ export default function Index() {
                         {clientes.data.map((cliente) => (
                             <tr key={cliente.id}>
                                 <td>{cliente.nome}</td>
-                                <td className="has-text-centered">{cliente.data_nascimento}</td>
+                                <td className="has-text-centered">{cliente.nascimento} - {cliente.idade} anos</td>
                                 <td className="has-text-centered">{cliente.genero == 'MASCULINO' ? 'Masculino' : 'Feminino'}</td>
                                 <td className="has-text-centered">
                                     <Link className="button is-link mr-2" href={route('clientes.cadastro', cliente)} method="get">Editar</Link>
@@ -57,6 +56,7 @@ export default function Index() {
                         ))}
                     </tbody>
                 </table>
+                <Paginator data={clientes} />
             </div>
         </Layout>
     )

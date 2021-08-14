@@ -9,6 +9,7 @@ use App\Jobs\Cliente\SalvarClienteJob;
 use App\Jobs\Cliente\SalvarContatoClienteJob;
 use App\Jobs\Cliente\SalvarEnderecoClienteJob;
 use App\Models\Cliente;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 use function GuzzleHttp\Promise\all;
@@ -22,7 +23,11 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::select(
             [
-                'id', 'nome', 'data_nascimento', 'genero'
+                'id',
+                'nome',
+                'genero',
+                DB::raw('DATE_FORMAT(data_nascimento, "%d/%m/%Y") as nascimento'),
+                DB::raw('TIMESTAMPDIFF(YEAR, data_nascimento, CURDATE()) as idade')
             ]
         )
             ->orderBy('nome')

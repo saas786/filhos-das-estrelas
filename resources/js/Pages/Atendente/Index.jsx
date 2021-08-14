@@ -21,6 +21,19 @@ export default function Index() {
                         <Link href={route('atendentes.cadastro')} className="button is-primary is-pulled-right">Novo atendente</Link>
                     </div>
                 </div>
+                <table className="table is-striped is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th className="has-text-centered">Data de nascimento</th>
+                            <th className="has-text-centered">Gênero</th>
+                            <th className="has-text-centered">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
         </Layout>
     );

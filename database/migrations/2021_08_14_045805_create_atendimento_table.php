@@ -18,7 +18,7 @@ class CreateAtendimentoTable extends Migration
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('cliente');
             $table->unsignedBigInteger('servico_id');
-            $table->foreign('serivco_id')->references('id')->on('servico');
+            $table->foreign('servico_id')->references('id')->on('servico');
             $table->date('data');
             $table->time('horario_inicial');
             $table->time('horario_final');

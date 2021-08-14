@@ -9,16 +9,31 @@ use Inertia\Inertia;
 
 class AtendenteController extends Controller
 {
+    /**
+     * @return \Inertia\Response
+     */
     public function index()
     {
-        return Inertia::render('Atendente/Index');
+        $atendentes = Atendente::orderBy('nome')->paginate();
+        return Inertia::render(
+            'Atendente/Index',
+            [
+                'atendentes' => $atendentes
+            ]
+        );
     }
 
     /**
      * @param Atendente $cliente
+     * @return \Inertia\Response
      */
-    public function cadastro(Atendente $cliente = null)
+    public function cadastro(Atendente $atendente = null)
     {
-        return Inertia::render('Atendente/Cadastro');
+        return Inertia::render(
+            'Atendente/Cadastro',
+            [
+                'atendente' => $atendente
+            ]
+        );
     }
 }
