@@ -71,7 +71,6 @@ class ClienteController extends Controller
             || $atributos->get('telefone_celular')
             || $atributos->get('email')
         ) {
-            dd('teste');
             $contato = SalvarContatoClienteJob::dispatchNow($atributos, $cliente);
         }
 

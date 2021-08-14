@@ -52,7 +52,6 @@ class SalvarContatoClienteJob implements ShouldQueue
     {
         return DB::transaction(
             function () {
-                dd($this->atributos->get('email'));
                 $this->contato->cliente()->associate($this->cliente);
                 $this->contato->telefone_fixo = $this->atributos->get('telefone_fixo');
                 $this->contato->telefone_celular = $this->atributos->get('telefone_celular');
