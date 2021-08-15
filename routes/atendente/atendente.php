@@ -7,5 +7,6 @@ Route::group(
     function () {
         Route::get('/', [AtendenteController::class, 'index'])->name('atendentes.index');
         Route::get('/cadastro/{cadastro?}', [AtendenteController::class, 'cadastro'])->name('atendentes.cadastro');
+        Route::post('/salvar', [AtendenteController::class, 'salvar'])->name('atendentes.salvar');
     }
 );

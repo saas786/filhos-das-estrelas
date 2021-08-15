@@ -6,10 +6,16 @@ export default function Cadastro() {
     const { atendente } = usePage().props;
 
     const { data, setData, post, put, errors } = useForm({
-        nome: atendente ? atendente.nome : '',
+        nome: '',
         genero: atendente ? atendente.genero : '',
         data_nascimento: atendente ? atendente.data_nascimento : '',
     })
+
+    function submit(e) {
+        e.preventDefault();
+
+        post(route('atendentes.salvar'));
+    }
 
     return (
         <Layout>
@@ -23,7 +29,7 @@ export default function Cadastro() {
             <div id="div-atendentes-cadastro" className="mt-6">
                 <h4 className="subtitle is-4">Cadastro de atendente</h4>
                 <hr />
-                <form>
+                <form onSubmit={submit}>
                     <div id="div-formulario-dados-basicos">
                         <h5 className="subtitle is-5">Dados básicos</h5>
                         <div className="columns">
@@ -31,7 +37,11 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Nome</label>
                                     <div className="control">
-                                        <input type="text" className="input" placeholder="Insira o nome do atendente" value={data.nome} onChange={e => setData('nome', e.targert.value)} />
+                                        <input type="text"
+                                            className="input"
+                                            placeholder="Insira o nome do atendente"
+                                            value={data.nome}
+                                            onChange={e => setData('nome', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +51,7 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Data nascimento</label>
                                     <div className="control">
-                                        <input type="date" className="input" />
+                                        <input type="date" className="input" value={data.data_nascimento} onChange={e => setData('data_nascimento', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +59,7 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Gênero</label>
                                     <div className="select">
-                                        <select>
+                                        <select value={data.genero} onChange={e => setData('genero', e.target.value)}>
                                             <option value="">Selecione</option>
                                             <option value="FEMININO">Feminino</option>
                                             <option value="MASCULINO">Masculino</option>
@@ -57,6 +67,11 @@ export default function Cadastro() {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="columns mt-2">
+                        <div className="column">
+                            <button type="submit" className="button is-primary">Salvar</button>
                         </div>
                     </div>
                 </form>
