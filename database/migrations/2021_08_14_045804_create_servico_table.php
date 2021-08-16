@@ -15,6 +15,8 @@ class CreateServicoTable extends Migration
     {
         Schema::create('servico', function (Blueprint $table) {
             $table->id();
+            $table->string('nome');
+            $table->text('descricao');
             $table->timestamps();
         });
     }

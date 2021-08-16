@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 require_once base_path('routes/cliente/cliente.php');
+require_once base_path('routes/servico/servico.php');
 require_once base_path('routes/atendente/atendente.php');
 require_once base_path('routes/dashboard/dashboard.php');
 

@@ -49,6 +49,7 @@ class SalvarClienteJob implements ShouldQueue
                 $this->cliente->nome = $this->atributos->get('nome');
                 $this->cliente->data_nascimento = $this->atributos->get('data_nascimento');
                 $this->cliente->genero = $this->atributos->get('genero');
+                $this->cliente->motivo = $this->atributos->get('motivo');
 
                 $this->cliente->save();
 

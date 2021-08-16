@@ -12,8 +12,6 @@ use App\Models\Cliente;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
-use function GuzzleHttp\Promise\all;
-
 class ClienteController extends Controller
 {
     /**

@@ -3,6 +3,8 @@ import InputMask from 'react-input-mask';
 import Notification from "../../Shared/Notification";
 import { useForm, usePage } from "@inertiajs/inertia-react"
 
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 export default function Cadastro() {
     const { cliente, endereco, contato } = usePage().props;
 
@@ -10,6 +12,7 @@ export default function Cadastro() {
         nome: cliente ? cliente.nome : '',
         data_nascimento: cliente ? cliente.data_nascimento : '',
         genero: cliente ? cliente.genero : '',
+        motivo: cliente ? cliente.motivo : '',
         cep: endereco ? endereco.cep : '',
         logradouro: endereco ? endereco.logradouro : '',
         bairro: endereco ? endereco.bairro : '',
@@ -33,7 +36,7 @@ export default function Cadastro() {
                 <ul>
                     <li><a href={route('clientes.index')}>Clientes</a></li>
                     <li className="is-active">
-                        <a href={cliente ? route('clientes.cadastro', cliente) : route('clientes.cadastro')}>{cliente ? cliente.nome : ''}</a>
+                        <a href={cliente ? route('clientes.cadastro', cliente) : route('clientes.cadastro')}>{cliente ? cliente.nome : 'Cadastro'}</a>
                     </li>
                 </ul>
             </nav>
@@ -146,7 +149,7 @@ export default function Cadastro() {
                         <div className="columns">
                             <div className="column is-2">
                                 <div className="field">
-                                    <label>Telefone fixo</label>
+                                    <label className="label">Telefone fixo</label>
                                     <div className="control">
                                         <InputMask mask="(99) 9999-9999" className="input" id="telefone_fixo" value={data.telefone_fixo} onChange={e => setData('telefone_fixo', e.target.value)} />
                                     </div>
@@ -154,7 +157,7 @@ export default function Cadastro() {
                             </div>
                             <div className="column is-2">
                                 <div className="field">
-                                    <label>Telefone celular</label>
+                                    <label className="label">Telefone celular</label>
                                     <div className="control">
                                         <InputMask mask="(99) 99999-9999" className="input" value={data.telefone_celular} onChange={e => setData('telefone_celular', e.target.value)} />
                                     </div>
@@ -162,11 +165,23 @@ export default function Cadastro() {
                             </div>
                             <div className="column is-3">
                                 <div className="field">
-                                    <label>Email</label>
+                                    <label className="label">Email</label>
                                     <div className="control">
                                         <input type="email" className="input" value={data.email} onChange={e => setData('email', e.target.value)} />
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="formulario-motivo">
+                        <h5 className="subtitle is-5 mt-6">Motivo</h5>
+                        <div className="columns">
+                            <div className="column is-7">
+                                <textarea className="textarea"
+                                    rows="10"
+                                    placeholder="Informe o motivo pelo qual o cliente procurou os filhos das estrelas"
+                                    value={data.motivo}
+                                    onChange={e => setData('motivo', e.target.value)}/>
                             </div>
                         </div>
                     </div>

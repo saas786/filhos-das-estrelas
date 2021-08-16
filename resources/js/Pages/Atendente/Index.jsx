@@ -1,8 +1,20 @@
 import Layout from "../../Shared/Layout";
-import { Link } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import Notification from "../../Shared/Notification";
+import { Inertia } from "@inertiajs/inertia";
+import Paginator from "../../Shared/Paginator";
 
 export default function Index() {
+    const { atendentes } = usePage().props;
+
+    function excluirAtendente(atendente) {
+        let confirmation = confirm('Você realmente deseja excluir este atendente?');
+
+        if (confirmation === true) {
+            Inertia.delete(route('atendentes.excluir', atendente));
+        }
+    }
+
     return (
         <Layout>
             <nav className="breadcrumb mt-5" aria-label="breadcrumbs">
@@ -31,9 +43,25 @@ export default function Index() {
                         </tr>
                     </thead>
                     <tbody>
-
+                        {atendentes.data.map((atendente) => (
+                            <tr key={atendente.id}>
+                                <td>{atendente.nome}</td>
+                                <td className="has-text-centered">{atendente.nascimento}</td>
+                                <td className="has-text-centered">{atendente.genero === 'MASCULINO' ? 'Masculino' : 'Feminino'}</td>
+                                <td className="has-text-centered">
+                                    <Link href={route('atendentes.cadastro', atendente)} className="button is-link mr-2" method="get">Editar</Link>
+                                    <button className="button is-danger" onClick={e => excluirAtendente(atendente)}>Excluir</button>
+                                </td>
+                            </tr>
+                        ))}
+                        {atendentes.data.length === 0 && (
+                            <tr>
+                                <td colSpan="5" className="has-text-centered">Nenhum atendente cadastrado</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
+                <Paginator data={atendentes} />
             </div>
         </Layout>
     );

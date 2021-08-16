@@ -10,4 +10,9 @@ class Atendente extends Model
     use HasFactory;
 
     protected $table = 'atendente';
+
+    public function servicos()
+    {
+        return $this->belongsToMany(Servico::class, 'atendente_servico', 'atendente_id', 'servico_id');
+    }
 }

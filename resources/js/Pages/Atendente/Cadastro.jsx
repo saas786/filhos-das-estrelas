@@ -6,7 +6,7 @@ export default function Cadastro() {
     const { atendente } = usePage().props;
 
     const { data, setData, post, put, errors } = useForm({
-        nome: '',
+        nome: atendente ? atendente.nome : '',
         genero: atendente ? atendente.genero : '',
         data_nascimento: atendente ? atendente.data_nascimento : '',
     })
@@ -14,7 +14,7 @@ export default function Cadastro() {
     function submit(e) {
         e.preventDefault();
 
-        post(route('atendentes.salvar'));
+        atendente ? put(route('atendentes.editar', atendente)) : post(route('atendentes.salvar'));
     }
 
     return (

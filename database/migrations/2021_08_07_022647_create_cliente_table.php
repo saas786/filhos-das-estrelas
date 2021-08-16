@@ -16,8 +16,9 @@ class CreateClienteTable extends Migration
         Schema::create('cliente', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->date('data_nascimento');
+            $table->date('data_nascimento')->nullable();
             $table->enum('genero', ['MASCULINO', 'FEMININO']);
+            $table->text('motivo')->nullable();
             $table->timestamps();
         });
     }

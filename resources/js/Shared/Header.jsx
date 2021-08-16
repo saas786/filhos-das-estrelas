@@ -31,6 +31,10 @@ export default function Header() {
         });
     }
 
+    function checkRouteActive(routeName) {
+        return route().current(routeName + '.*') ? 'navbar-item is-active' : 'navbar-item';
+    }
+
     return (
         <nav className="navbar box" style={{ padding: 5 }} role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
@@ -46,18 +50,19 @@ export default function Header() {
             </div>
             <div id="mainNavbar" className="navbar-menu">
                 <div className="navbar-start">
-                    <Link href={route('dashboard.index')} method="get" className="navbar-item" as="a">
+                    <Link href={route('dashboard.index')} method="get" className={checkRouteActive('dashboard')} as="a">
                         Dashboard
                     </Link>
-                    <Link href={route('clientes.index')} method="get" className="navbar-item" as="a">
+                    <Link href={route('clientes.index')} method="get" className={checkRouteActive('clientes')} as="a">
                         Clientes
                     </Link>
-                    <Link href={route('atendentes.index')} method="get" className="navbar-item" as="a">
+                    <Link href={route('atendentes.index')} method="get" className={checkRouteActive('atendentes')} as="a">
                         Atendentes
                     </Link>
                     <a className="navbar-item">
                         Atendimentos
                     </a>
+                    <Link href={route('servicos.index')} method="get" className={checkRouteActive('servicos')} as="a">Serviços</Link>
                 </div>
                 <div className="navbar-end">
                     <div className="navbar-item">

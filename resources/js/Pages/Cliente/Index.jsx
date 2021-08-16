@@ -54,6 +54,11 @@ export default function Index() {
                                 </td>
                             </tr>
                         ))}
+                        {clientes.data.length === 0 && (
+                            <tr>
+                                <td colSpan="5" className="has-text-centered">Nenhum atendente cadastrado</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
                 <Paginator data={clientes} />
