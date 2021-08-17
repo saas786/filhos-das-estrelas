@@ -37,7 +37,7 @@ export default function Header() {
 
     return (
         <nav className="navbar box"
-             style={{ padding: 5, borderBottom: 2, borderBottomStyle: 'solid', borderBottomColor: '#3490dc' }}
+             style={{ padding: 5, borderBottom: 2, borderBottomStyle: 'solid', borderBottomColor: '#d4d4d4' }}
              role="navigation"
              aria-label="main navigation">
             <div className="navbar-brand">
@@ -70,7 +70,7 @@ export default function Header() {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <Link href="/logout" method="post" className="button" as="button">
-                            Logout
+                            <em className="fa fa-sign-out-alt"></em>
                         </Link>
                     </div>
                 </div>

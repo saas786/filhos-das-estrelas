@@ -59,7 +59,6 @@ class ClienteController extends Controller
     public function salvar(SalvarClienteRequest $request): \Illuminate\Http\RedirectResponse
     {
         $atributos = collect($request->all());
-        dd($atributos->get('numero'));
 
         $cliente = SalvarClienteJob::dispatchNow($atributos);
 

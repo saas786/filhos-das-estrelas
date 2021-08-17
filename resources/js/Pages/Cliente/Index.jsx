@@ -2,6 +2,7 @@ import Filtro from "./Partial/Filtro"
 import Layout from "../../Shared/Layout"
 import { Inertia } from "@inertiajs/inertia"
 import Paginator from "../../Shared/Paginator"
+import Notification from "../../Shared/Notification"
 import { Link, usePage } from "@inertiajs/inertia-react"
 
 export default function Index() {
@@ -23,6 +24,7 @@ export default function Index() {
                     <li className="is-active"><a href={route('clientes.index')}>Listagem</a></li>
                 </ul>
             </nav>
+            <Notification />
             <div id="lista-clientes-div" className="mt-6">
                 <div className="columns">
                     <div className="column">

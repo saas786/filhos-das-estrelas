@@ -9,7 +9,6 @@ export default function Layout({children}) {
 
     return (
         <main id="main">
-            <Notification />
             <Header />
             <article id="article-content">
                 {children}
