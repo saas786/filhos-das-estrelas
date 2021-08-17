@@ -30,7 +30,7 @@ export default function Index() {
                         <h4 className="subtitle is-4">Listagem de atendentes</h4>
                     </div>
                     <div className="column">
-                        <Link href={route('atendentes.cadastro')} className="button is-primary is-pulled-right">Novo atendente</Link>
+                        <Link href={route('atendentes.cadastro')} className="button is-link is-pulled-right">Novo atendente</Link>
                     </div>
                 </div>
                 <table className="table is-striped is-hoverable is-fullwidth">

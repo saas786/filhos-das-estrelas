@@ -1,11 +1,11 @@
+import axios from "axios";
+import { useEffect } from "react";
 import Layout from "../../Shared/Layout"
 import InputMask from 'react-input-mask';
-import Notification from "../../Shared/Notification";
 import { useForm, usePage } from "@inertiajs/inertia-react"
 
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
 export default function Cadastro() {
+
     const { cliente, endereco, contato } = usePage().props;
 
     const { data, setData, post, put, errors } = useForm({
@@ -30,6 +30,35 @@ export default function Cadastro() {
         cliente ? put(route('clientes.editar', cliente)) : post(route('clientes.salvar'));
     }
 
+    useEffect(() => {
+        let inputCep = document.getElementById('cep');
+        inputCep.addEventListener('blur', function (e) {
+            buscarEndereco(e);
+        });
+    });
+
+    // TODO: Verificar a implementação do preenchimento do formulário de endereço
+    function buscarEndereco(e) {
+        let endereco = axios.get('https://viacep.com.br/ws/' + e.target.value + '/json/').then((endereco) => {
+            let enderecoData = endereco.data;
+            setData(data => ({
+                ...data,
+                logradouro: enderecoData.logradouro,
+                bairro: enderecoData.bairro,
+                cidade: enderecoData.localidade,
+                uf: enderecoData.uf
+            }));
+            bloquearCamposEndereco();
+        });
+    }
+
+    function bloquearCamposEndereco() {
+        document.getElementById('logradouro').disabled = true;
+        document.getElementById('bairro').disabled = true;
+        document.getElementById('cidade').disabled = true;
+        document.getElementById('uf').disabled = true;
+    }
+
     return (
         <Layout>
             <nav className="breadcrumb mt-5" aria-label="breadcrumbs">
@@ -40,7 +69,6 @@ export default function Cadastro() {
                     </li>
                 </ul>
             </nav>
-            <Notification />
             <div id="cadastro-clientes-div" className="mt-6">
                 <h4 className="subtitle is-4">Cadastro de cliente</h4>
                 <hr />
@@ -96,7 +124,11 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">CEP</label>
                                     <div className="control">
-                                        <InputMask mask="99999-999" className="input" value={data.cep} onChange={e => setData('cep', e.target.value)} />
+                                        <InputMask mask="99999-999"
+                                            id="cep"
+                                            className="input"
+                                            value={data.cep}
+                                            onChange={e => setData('cep', e.target.value)} />
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +170,13 @@ export default function Cadastro() {
                                 <div className="field">
                                     <label className="label">Numero</label>
                                     <div className="control">
-                                        <input type="number" className="input" id="numero" value={data.numero} onChange={e => setData('numero', e.target.value)} />
+                                        <input type="number"
+                                            className={errors.numero ? 'input is-danger' : 'input'}
+                                            id="numero"
+                                            value={data.numero}
+                                            maxLength="2"
+                                            onChange={e => setData('numero', e.target.value)} />
+                                        {errors.numero && <span className="help is-danger">{errors.numero}</span>}
                                     </div>
                                 </div>
                             </div>
@@ -181,13 +219,13 @@ export default function Cadastro() {
                                     rows="10"
                                     placeholder="Informe o motivo pelo qual o cliente procurou os filhos das estrelas"
                                     value={data.motivo}
-                                    onChange={e => setData('motivo', e.target.value)}/>
+                                    onChange={e => setData('motivo', e.target.value)} />
                             </div>
                         </div>
                     </div>
                     <div className="columns mt-2">
                         <div className="column">
-                            <button type="submit" className="button is-primary">Salvar</button>
+                            <button type="submit" className="button is-link">Salvar</button>
                         </div>
                     </div>
                 </form>

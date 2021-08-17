@@ -36,7 +36,10 @@ export default function Header() {
     }
 
     return (
-        <nav className="navbar box" style={{ padding: 5 }} role="navigation" aria-label="main navigation">
+        <nav className="navbar box"
+             style={{ padding: 5, borderBottom: 2, borderBottomStyle: 'solid', borderBottomColor: '#3490dc' }}
+             role="navigation"
+             aria-label="main navigation">
             <div className="navbar-brand">
                 <a href="/" className="navbar-item">
                     <h4>Projeto FDE</h4>

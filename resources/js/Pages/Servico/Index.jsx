@@ -18,7 +18,7 @@ export default function Index() {
                         <h4 className="subtitle is-4">Listagem de serviços</h4>
                     </div>
                     <div className="column">
-                        <Link href="#" className="button is-primary is-pulled-right">Novo serviço</Link>
+                        <Link href="#" className="button is-link is-pulled-right">Novo serviço</Link>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ import './auth.scss';
 
 export default function Login() {
 
-    const {data, setData, post, processing, errors} = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         email: '',
         password: ''
     })
@@ -38,7 +38,12 @@ export default function Login() {
                                 </div>
                             </div>
                             <div className="field">
-                                <button type="submit" className="button is-primary">Logar</button>
+
+                                <button type="submit"
+                                    className={processing ? 'button is-link is-loading' : 'button is-link'}
+                                    disabled={processing}>
+                                        Logar
+                                </button>
                             </div>
                         </form>
                     </div>

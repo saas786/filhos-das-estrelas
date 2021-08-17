@@ -9,25 +9,22 @@ use App\Jobs\Cliente\SalvarClienteJob;
 use App\Jobs\Cliente\SalvarContatoClienteJob;
 use App\Jobs\Cliente\SalvarEnderecoClienteJob;
 use App\Models\Cliente;
+use App\Queries\Cliente\ListaClientesQuery;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ClienteController extends Controller
 {
     /**
+     * @param Request $request
      * @return \Inertia\Response
      */
-    public function index(): \Inertia\Response
+    public function index(Request $request): \Inertia\Response
     {
-        $clientes = Cliente::select(
-            [
-                'id',
-                'nome',
-                'genero',
-                DB::raw('DATE_FORMAT(data_nascimento, "%d/%m/%Y") as nascimento'),
-                DB::raw('TIMESTAMPDIFF(YEAR, data_nascimento, CURDATE()) as idade')
-            ]
-        )
+        $atributos = collect($request->all());
+
+        $clientes = (new ListaClientesQuery($atributos))->getQuery()
             ->orderBy('nome')
             ->paginate();
 
@@ -62,6 +59,7 @@ class ClienteController extends Controller
     public function salvar(SalvarClienteRequest $request): \Illuminate\Http\RedirectResponse
     {
         $atributos = collect($request->all());
+        dd($atributos->get('numero'));
 
         $cliente = SalvarClienteJob::dispatchNow($atributos);
 
@@ -110,7 +108,7 @@ class ClienteController extends Controller
      * @param Cliente $cliente
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function excluir(Cliente $cliente)
+    public function excluir(Cliente $cliente): \Illuminate\Http\RedirectResponse
     {
         ExcluirClienteJob::dispatchNow($cliente);
 

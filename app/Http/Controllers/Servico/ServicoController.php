@@ -2,14 +2,26 @@
 
 namespace App\Http\Controllers\Servico;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
-
+use App\Models\Servico;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 class ServicoController extends Controller
 {
-    public function index()
+    /**
+     * @return \Inertia\Response
+     */
+    public function index(): \Inertia\Response
     {
         return Inertia::render('Servico/Index');
+    }
+
+    /**
+     * @param Servico $servico
+     * @return \Inertia\Response
+     */
+    public function cadastro(Servico $servico = null): \Inertia\Response
+    {
+        return Inertia::render('Servico/Cadastro');
     }
 }

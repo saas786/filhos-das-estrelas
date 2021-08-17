@@ -19,10 +19,10 @@ class CreateEnderecoTable extends Migration
             $table->foreign('cliente_id')->references('id')->on('cliente');
             $table->string('cep');
             $table->string('logradouro');
-            $table->string('uf');
+            $table->string('uf', 2);
             $table->string('bairro');
             $table->string('cidade');
-            $table->string('numero');
+            $table->integer('numero')->nullable();
             $table->timestamps();
         });
     }

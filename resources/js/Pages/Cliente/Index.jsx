@@ -1,7 +1,7 @@
+import Filtro from "./Partial/Filtro"
 import Layout from "../../Shared/Layout"
 import { Inertia } from "@inertiajs/inertia"
 import Paginator from "../../Shared/Paginator"
-import Notification from "../../Shared/Notification"
 import { Link, usePage } from "@inertiajs/inertia-react"
 
 export default function Index() {
@@ -23,17 +23,17 @@ export default function Index() {
                     <li className="is-active"><a href={route('clientes.index')}>Listagem</a></li>
                 </ul>
             </nav>
-            <Notification />
             <div id="lista-clientes-div" className="mt-6">
                 <div className="columns">
                     <div className="column">
                         <h4 className="subtitle is-4">Listagem de clientes</h4>
                     </div>
                     <div className="column">
-                        <Link href={route('clientes.cadastro')} className="button is-primary is-pulled-right">Novo cliente</Link>
+                        <Link href={route('clientes.cadastro')} className="button is-link is-pulled-right">Novo cliente</Link>
                     </div>
                 </div>
-                <table className="table is-striped is-hoverable is-fullwidth">
+                <Filtro />
+                <table className="table is-striped is-hoverable is-fullwidth mt-5">
                     <thead>
                         <tr>
                             <th>Nome</th>

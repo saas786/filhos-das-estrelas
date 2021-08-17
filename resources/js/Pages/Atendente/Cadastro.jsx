@@ -71,7 +71,7 @@ export default function Cadastro() {
                     </div>
                     <div className="columns mt-2">
                         <div className="column">
-                            <button type="submit" className="button is-primary">Salvar</button>
+                            <button type="submit" className="button is-link">Salvar</button>
                         </div>
                     </div>
                 </form>

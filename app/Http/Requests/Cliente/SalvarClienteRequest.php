@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Cliente;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SalvarClienteRequest extends FormRequest
@@ -26,7 +27,7 @@ class SalvarClienteRequest extends FormRequest
         return [
             'nome' => 'required|string',
             'data_nascimento' => 'date',
-            'genero' => 'required|string'
+            'genero' => 'required|string',
         ];
     }
 }

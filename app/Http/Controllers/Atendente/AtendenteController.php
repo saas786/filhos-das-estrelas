@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Jobs\Atendente\SalvarAtendenteJob;
 use Illuminate\Http\Request;
 use App\Models\Atendente;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class AtendenteController extends Controller
@@ -15,7 +15,7 @@ class AtendenteController extends Controller
     /**
      * @return \Inertia\Response
      */
-    public function index()
+    public function index(): \Inertia\Response
     {
         $atendentes = Atendente::select(
             [
@@ -38,7 +38,7 @@ class AtendenteController extends Controller
      * @param Atendente $cliente
      * @return \Inertia\Response
      */
-    public function cadastro(Atendente $atendente = null)
+    public function cadastro(Atendente $atendente = null): \Inertia\Response
     {
         return Inertia::render(
             'Atendente/Cadastro',
@@ -52,7 +52,7 @@ class AtendenteController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function salvar(Request $request)
+    public function salvar(Request $request): \Illuminate\Http\RedirectResponse
     {
         $atributos = collect($request->all());
         $atendente = SalvarAtendenteJob::dispatchNow($atributos);
@@ -63,8 +63,9 @@ class AtendenteController extends Controller
     /**
      * @param Request $request
      * @param Atendente $atendente
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function editar(Request $request, Atendente $atendente)
+    public function editar(Request $request, Atendente $atendente): \Illuminate\Http\RedirectResponse
     {
         $atributos = collect($request->all());
         $atendente = SalvarAtendenteJob::dispatchNow($atributos, $atendente);
@@ -74,8 +75,9 @@ class AtendenteController extends Controller
 
     /**
      * @param Atendente $atendente
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function excluir(Atendente $atendente)
+    public function excluir(Atendente $atendente): \Illuminate\Http\RedirectResponse
     {
         $atendente->delete();
 
